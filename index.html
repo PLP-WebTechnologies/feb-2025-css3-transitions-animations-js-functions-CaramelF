@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Lee's Week 7 </title>
+    <link rel="stylesheet" href="style.css" />
+
+</head>
+
+<body>
+
+    <h1>This is my Week 7</h1>
+
+    <button onclick="toggleTheme()">Toggle Dark Mode</button>
+    <br>
+
+    <label for="fontSize">Choose Font Size:</label>
+    <select id="fontSize" onchange="changeFontSize(this.value)">
+        <option value="medium">Medium</option>
+        <option value="small">Small</option>
+        <option value="large">Large</option>
+    </select>
+    <br>
+
+    <button onclick="animateImage()">Animate Image</button>
+    <br>
+
+    <img id="logo"
+        src="https://images.pexels.com/photos/3457780/pexels-photo-3457780.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
+        alt="flowers" />
+
+
+    <script> window.onload = () => {
+            const theme = localStorage.getItem('theme') || 'light';
+            const fontSize = localStorage.getItem('fontSize') || 'medium';
+
+            applyTheme(theme);
+            applyFontSize(fontSize);
+
+            // Set dropdown value to match
+            document.getElementById('fontSize').value = fontSize;
+        };
+
+        function toggleTheme() {
+            const currentTheme = document.body.classList.contains('dark-mode') ? 'light' : 'dark';
+            applyTheme(currentTheme);
+            localStorage.setItem('theme', currentTheme);
+        }
+
+        function applyTheme(theme) {
+            if (theme === 'dark') {
+                document.body.classList.add('dark-mode');
+            } else {
+                document.body.classList.remove('dark-mode');
+            }
+        }
+
+        function changeFontSize(size) {
+            applyFontSize(size);
+            localStorage.setItem('fontSize', size);
+        }
+
+        function applyFontSize(size) {
+            document.body.classList.remove('small-font', 'medium-font', 'large-font');
+            document.body.classList.add(`${size}-font`);
+        }
+
+        function animateImage() {
+            const img = document.getElementById('logo');
+            img.classList.remove('spin');
+            void img.offsetWidth; // Trigger reflow
+            img.classList.add('spin');
+        }</script>
+</body>
+
+</html>
